@@ -27,7 +27,8 @@ function br.ui:createConfigWindow()
 
     local function callEnemiesEngine()
         -- Enemies Engine
-        section = br.ui:createSection(br.ui.window.config, "Enemies Engine")
+        section = br.ui:createSection(br.ui.window.config, "Enemies Engine")        
+        br.ui:createDropdownWithout(section, "Play Mode", {"Arena", "Mythic"},  2, "|cffFFDD11Arena or Mythic")
         br.ui:createDropdown(section, "Dynamic Targetting", {"Only In Combat","Default", --[["Lite"]]}, 2, "Check this to allow dynamic targetting. If unchecked, profile will only attack current target.")
         --br.ui:createCheckbox(section,"Include Range", "Checking this will pick a new target if current target is out of range. (Only valid on Lite mode)")
         br.ui:createCheckbox(section, "Target Dynamic Target", "Check this will target the current dynamic target.")

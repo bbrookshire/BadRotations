@@ -350,15 +350,26 @@ actionList.Interrupts = function()
                 end
             end
         end
-        -- Freezing Trap
-        if isChecked("Freezing Trap") and cast.able.freezingTrap() then
+
+        -- Spider Sting
+        if cast.able.spiderStingPvp() then
             for i = 1, #enemies.yards40f do
-                thisUnit = enemies.yards40f[i]
-                if getDistance(thisUnit) > 8 and getCastTimeRemain(thisUnit) > 3 then
-                    if cast.freezingTrap(thisUnit,"ground") then return true end
+                thisUnit = enemies.yards40f[i]                
+                if getDistance(thisUnit) < 20 then
+                    if cast.spiderStingPvp(thisUnit) then return true end
                 end
             end
         end
+
+        -- Freezing Trap
+        -- if cast.able.freezingTrap() then
+            -- for i = 1, #enemies.yards40f do
+                -- thisUnit = enemies.yards40f[i]
+                -- if getDistance(thisUnit) < 20 then
+                    -- if cast.freezingTrap(thisUnit,"ground") then return true end
+                -- end
+            -- end
+        -- end
         -- Intimidation
         if isChecked("Intimidation") and not UnitIsDeadOrGhost("pet") and UnitExists("pet") then
             for i=1, #enemies.yards40f do
@@ -785,6 +796,30 @@ actionList.St = function()
     end
 end -- End Action List - Single Target
 
+-- PVP Specific
+actionList.PvpRotation = function()
+    -- Dire Beast Hawk (PVP Talent)    
+    if cast.able.direBeastHawkPvp then
+        for i = 1, #enemies.yards40f do
+            thisUnit = enemies.yards40f[i]            
+            if getDistance(thisUnit) < 40 then
+                -- if cast.direBeastHawkPvp(thisUnit,"ground") then return true end
+                if cast.direBeastHawkPvp(thisUnit) then return true end
+            end
+        end
+    end
+    
+    -- Dire Beast Basilisk (PVP Talent)
+    if cast.able.direBeastBasiliskPvp then
+        if cast.direBeastBasiliskPvp() then return end
+    end
+    
+    -- Roar Of Sacrifice (PVP Talent)
+    if cast.able.roarOfSacrificePvp then
+        if cast.roarOfSacrificePvp() then return end
+    end
+end
+
 -- Action List - Cleave
 actionList.Cleave = function()
     -- Barbed Shot
@@ -1089,6 +1124,8 @@ local function runRotation()
                 StartAttack()
                 -- call_action_list,name=cds
                 if actionList.Cooldowns() then return end
+                -- run PVP rotation
+                if actionList.PvpRotation() then return end
                 -- call_action_list,name=st,if=active_enemies<2
                 if (mode.rotation == 1 and #enemies.yards8t < getOptionValue("Units To AoE")) or mode.rotation == 3 or level < 16 then
                     if actionList.St() then return end

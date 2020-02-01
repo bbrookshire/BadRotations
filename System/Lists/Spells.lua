@@ -961,7 +961,11 @@ br.lists.spells = {
                 spittingCobra               = 194407,
                 stampede                    = 201430,
                 titansThunder               = 207068,
-                volley                      = 194386
+                volley                      = 194386,
+                direBeastBasiliskPvp        = 205691,
+                roarOfSacrificePvp          = 53480,
+                spiderStingPvp              = 202933,
+                direBeastHawkPvp            = 208652
             },
             artifacts                       = {
 

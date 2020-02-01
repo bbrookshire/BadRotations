@@ -55,16 +55,30 @@ function updateOMEWT()
 	local om = br.om
 	local startTime = debugprofilestop()
 	local _, updated, added, removed = GetObjectCount(true,"BR")
+	local playmode = getOptionValue("Play Mode")
 	if updated and #added > 0 then
-		for _, v in pairs(added) do
-			if ObjectIsUnit(v) then
-				local enemyUnit = br.unitSetup:new(v)
-				if enemyUnit then
-					tinsert(om, enemyUnit)
+		if playmode == 1 then
+			for _, v in pairs(added) do
+				if UnitIsPlayer(v) then
+					local enemyUnit = br.unitSetup:new(v)
+					if enemyUnit then
+						tinsert(om, enemyUnit)
+					end
+				end
+			end
+		end
+		if playmode == 2 then
+			for _, v in pairs(added) do
+				if ObjectIsUnit(v) then
+					local enemyUnit = br.unitSetup:new(v)
+					if enemyUnit then
+						tinsert(om, enemyUnit)
+					end
 				end
 			end
 		end
 	end
+
     refreshStored = true
     -- Debugging
 	if isChecked("Debug Timers") then
