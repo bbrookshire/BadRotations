@@ -624,7 +624,8 @@ br.lists.spells = {
                 sephuzSecret                = 208052,
                 astralAcceleration          = 242232,
                 newMoonController           = -2027671,
-                starLord                    = 279709,
+                starLord                    = 279709,   --backwards compatible
+                starlord                    = 279709,
                 livelySpirit                = 279279,
                 arcanicPulsar               = 287790,
             },
@@ -3474,6 +3475,7 @@ br.lists.spells = {
                 seethingRage                    = 297126,
             },
             debuffs                             = {
+                bloodOfTheEnemy                 = 297108,
                 concentratedFlame               = 295368,
                 conductiveInk                   = 302565,
                 dampening                       = 110310,
