@@ -1,3 +1,4 @@
+--Version 1.0.0
 local rotationName = "Panglo"
 -- MOST OF THE CREDIT GOES TO FENGSHEN. I HAVE JUST UPDATED IT
 ---------------
@@ -53,7 +54,7 @@ local function createOptions()
 		-----------------------
 		--- GENERAL OPTIONS ---
 		-----------------------
-		section = br.ui:createSection(br.ui.window.profile, "General")
+		section = br.ui:createSection(br.ui.window.profile, "General - Version 1.000")
 		-- Blessing of Freedom
 		br.ui:createCheckbox(section, "Blessing of Freedom")
 		-- Taunt

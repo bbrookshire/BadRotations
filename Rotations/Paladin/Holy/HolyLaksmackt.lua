@@ -1,3 +1,4 @@
+--Version 1.0.0
 local rotationName = "Laksmackt" -- Change to name of profile listed in options drop down
 
 ---------------
@@ -77,7 +78,7 @@ local function createOptions()
         -- br.ui:createCheckbox(section, "Advanced Trinket Support")
         br.ui:checkSectionState(section)
 
-        section = br.ui:createSection(br.ui.window.profile, "General")
+        section = br.ui:createSection(br.ui.window.profile, "General - Version 1.000")
         -- Blessing of Freedom
         br.ui:createCheckbox(section, "Blessing of Freedom")
 
@@ -396,7 +397,7 @@ local function runRotation()
     local drinking = getBuffRemain("player", 192002) ~= 0 or getBuffRemain("player", 167152) ~= 0 or getBuffRemain("player", 192001) ~= 0
     local resable = UnitIsPlayer("target") and UnitIsDeadOrGhost("target") and GetUnitIsFriend("target", "player") and UnitInRange("target")
     local inCombat = isInCombat("player")
-    local inInstance = br.player.instance == "party" or br.player.instance == "scenario"
+    local inInstance = br.player.instance == "party" or br.player.instance == "scenario" 
     local inRaid = br.player.instance == "raid"
     local solo = #br.friend == 1
     local race = br.player.race
@@ -1772,7 +1773,7 @@ local function runRotation()
                     if cast.able.holyShock() and ((inInstance and #tanks > 0 and getDistance(units.dyn40, tanks[1].unit) <= 10 or solo or inRaid)) then
                         for i = 1, #enemies.yards40 do
                             local thisUnit = enemies.yards40[i]
-                            if not debuff.glimmerOfLight.exists(thisUnit) then
+                            if not debuff.glimmerOfLight.exists(thisUnit) and not UnitIsOtherPlayersPet(thisUnit) then
                                 if cast.holyShock(thisUnit) then
                                     return true
                                 end
