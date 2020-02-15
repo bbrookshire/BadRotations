@@ -3487,7 +3487,8 @@ br.lists.spells = {
                 eyeOfCorruption                 = 315161,
                 grandDelusions                  = 319695,
                 graspingTendrils                = 315176,
-                creepingMadness                 =313250,
+                creepingMadness                 = 313250,
+                fixate				            = 318078,	
 
             },
             essences                            = {
