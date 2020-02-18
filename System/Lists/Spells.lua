@@ -3473,6 +3473,7 @@ br.lists.spells = {
                 recklessForce                   = 302932,
                 recklessForceCounter            = 298452,
                 seethingRage                    = 297126,
+				reapingFlames					= 311202,
             },
             debuffs                             = {
                 bloodOfTheEnemy                 = 297108,
@@ -3487,7 +3488,7 @@ br.lists.spells = {
                 eyeOfCorruption                 = 315161,
                 grandDelusions                  = 319695,
                 graspingTendrils                = 315176,
-                creepingMadness                 = 313250,
+                creepingMadness                 = 313255,
                 fixate				            = 318078,	
 
             },
