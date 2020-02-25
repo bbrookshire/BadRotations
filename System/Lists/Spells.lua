@@ -3473,7 +3473,8 @@ br.lists.spells = {
                 recklessForce                   = 302932,
                 recklessForceCounter            = 298452,
                 seethingRage                    = 297126,
-				reapingFlames					= 311202,
+                reapingFlames					= 311202,
+                worldveinResonance              = 313310,
             },
             debuffs                             = {
                 bloodOfTheEnemy                 = 297108,
@@ -3490,7 +3491,6 @@ br.lists.spells = {
                 graspingTendrils                = 315176,
                 creepingMadness                 = 313255,
                 fixate				            = 318078,	
-
             },
             essences                            = {
                 aegisOfTheDeep                  = 298168,
