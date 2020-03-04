@@ -2927,6 +2927,7 @@ br.lists.spells = {
             buffs                           = {
                 cascadingCalamity           = 275378,
                 compoundingHorror           = 199281,
+                darkSoul                    = 113860,   
                 deadwindHarvester           = 216708,
                 demonicPower                = 196099,
                 empoweredLifeTap            = 235156,
@@ -2970,6 +2971,8 @@ br.lists.spells = {
             },
             traits                          = {
                 cascadingCalamity           = 275372,
+                dreadfulCalling             = 278727,
+                inevitableDemise            = 273525,
                 pandemicInvocation          = 289364,
             }
         },
