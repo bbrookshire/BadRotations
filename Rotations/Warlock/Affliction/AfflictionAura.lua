@@ -61,7 +61,7 @@ local function createOptions ()
 		-----------------------
 		--- GENERAL OPTIONS ---
 		-----------------------
-		section = br.ui:createSection(br.ui.window.profile,  "General - Version 1.01")
+		section = br.ui:createSection(br.ui.window.profile,  "General - Version 1.03")
             -- Dummy DPS Test
             br.ui:createSpinner(section, "DPS Testing",  5,  5,  60,  5,  "|cffFFFFFFSet to desired time for test in minuts. Min: 5 / Max: 60 / Interval: 5")
             -- Pig Catcher
@@ -396,17 +396,17 @@ actionList.Defensive = function()
         if isChecked("Devour Magic") and (pet.active.id() == 417 or pet.active.id() == 78158) then
             if getOptionValue("Devour Magic") == 1 then
                 if canDispel("target",spell.devourMagic) and GetObjectExists("target") then
-                    CastSpellByName(GetSpellInfo(spell.devourMagic)) br.addonDebug("Casting Devour Magic") return true 
+                    CastSpellByName(GetSpellInfo(spell.devourMagic),"target") br.addonDebug("Casting Devour Magic")  
                 end
             elseif getOptionValue("Devour Magic") == 2 then
                 for i = 1, #enemies.yards30 do
                     local thisUnit = enemies.yards30[i]
                     if canDispel(thisUnit,spell.devourMagic) then
-                        CastSpellByName(GetSpellInfo(spell.devourMagic)) br.addonDebug("Casting Devour Magic") return true 
+                        CastSpellByName(GetSpellInfo(spell.devourMagic),thisUnit) br.addonDebug("Casting Devour Magic") 
                     end
                 end
             end
-        end
+        end 
     end -- End Defensive Toggle
 end
 -- Action List - Interrupts
@@ -416,9 +416,9 @@ actionList.Interrupts = function()
             local thisUnit = enemies.yards40[i]
             if canInterrupt(thisUnit,option.value("Interrupt At")) then
                 if pet.active.id() == 417 then
-                    if cast.spellLock(thisUnit) then return true end
+                    if cast.spellLock(thisUnit) then end
                 elseif pet.active.id() == 78158 then
-                    if cast.shadowLock(thisUnit) then return true end
+                    if cast.shadowLock(thisUnit) then  end
                 end
             end
         end
@@ -438,7 +438,7 @@ actionList.Cooldown = function()
         then
             if equiped.azsharasFontOfPower and canUseItem(item.azsharasFontOfPower) then
                 if br.timer:useTimer("Font Delay", 4) then
-                    br.addonDebug("Using Font Of Azshara [Pre-Pull]")
+                    br.addonDebug("Using Font Of Azshara")
                     useItem(169314)
                 end
             end
@@ -446,7 +446,7 @@ actionList.Cooldown = function()
         -- actions.cooldowns+=/potion,if=(talent.dark_soul_misery.enabled&cooldown.summon_darkglare.up&cooldown.dark_soul.up)|cooldown.summon_darkglare.up|target.time_to_die<30
         if option.checked("Potion") and (talent.darkSoul and cd.summonDarkglare.remain <= gcdMax and cd.darkSoul.remain() <= gcdMax) or (cd.summonDarkglare.remain() <= gcdMax and not talent.darkSoul) or getTTD("target") < 30 then
             if not buff.potionOfUnbridledFury.exists() and canUseItem(item.potionOfUnbridledFury) then
-                if use.potionOfUnbridledFury() then br.addonDebug("Using Potion of Unbridled Fury [Pre-Pull]") return end
+                if use.potionOfUnbridledFury() then br.addonDebug("Using Potion of Unbridled Fury") return end
             end
         end
         -- actions.cooldowns+=/use_items,if=cooldown.summon_darkglare.remains>70|time_to_die<20|((buff.active_uas.stack=5|soul_shard=0)&(!talent.phantom_singularity.enabled|cooldown.phantom_singularity.remains)&(!talent.deathbolt.enabled|cooldown.deathbolt.remains<=gcd|!cooldown.deathbolt.remains)&!cooldown.summon_darkglare.remains)
@@ -463,7 +463,7 @@ actionList.Cooldown = function()
                     or equiped.rotcrustedVoodooDoll(i) or equiped.shiverVenomRelic(i) or equiped.aquipotentNautilus(i)
                     or equiped.tidestormCodex(i) or equiped.vialOfStorms(i)) 
                 then
-                    if use.slot(i) then br.addonDebug("Using Trinket in slot "..i.." [CD]") return true end
+                    if use.slot(i) then br.addonDebug("Using Trinket in slot "..i.." [CD]") end
                 end
             end
         end
@@ -536,9 +536,9 @@ actionList.PreCombat = function()
                 end
             end
         end
-        if option.checked("Pre-Pull") then
+        if option.checked("Pre-Pull Timer") then
             -- Flask / Crystal
-            if ((pullTimer <= getValue("Pre-Pull") and pullTimer > 4 and (not equiped.azsharasFontOfPower or not canUseItem(item.azsharasFontOfPower))) or (equiped.azsharasFontOfPower and canUseItem(item.azsharasFontOfPower) and pullTimer <= 20 and pullTimer > 8)) then
+            if ((pullTimer <= getValue("Pre-Pull Timer") and pullTimer > 4 and (not equiped.azsharasFontOfPower or not canUseItem(item.azsharasFontOfPower))) or (equiped.azsharasFontOfPower and canUseItem(item.azsharasFontOfPower) and pullTimer <= 20 and pullTimer > 8)) then
                 --actions.precombat=flask
                 if getOptionValue("Elixir") == 1 and inRaid and not buff.greaterFlaskOfEndlessFathoms.exists() and canUseItem(item.greaterFlaskOfEndlessFathoms) then
                     if use.greaterFlaskOfEndlessFathoms() then br.addonDebug("Using Greater Flask of Endless Fathoms [Pre-Pull]") return end
@@ -569,7 +569,7 @@ actionList.PreCombat = function()
                 if talent.haunt then    
                     CastSpellByName(GetSpellInfo(spell.haunt)) br.addonDebug("Casting Haunt [Pre-Pull]") return
                 else
-                    CastSpellByName(GetSpellInfo(spell.shadowBolt)) br.addonDebug("Casting Haunt [Pre-Pull]") return
+                    CastSpellByName(GetSpellInfo(spell.shadowBolt)) br.addonDebug("Casting Shadowbolt [Pre-Pull]") return
                 end
             end
         end -- End Pre-Pull 
@@ -829,7 +829,7 @@ end
 actionList.multi = function()
     -- Seed of Corruption
     if not moving and not cast.last.seedOfCorruption() and not debuff.seedOfCorruption.exists("target") then
-        if cast.seedOfCorruption() then br.addonDebug("Casting Seed of Corruption") return true end
+        if cast.seedOfCorruption(getBiggestUnitCluster(40,10)) then br.addonDebug("Casting Seed of Corruption") return true end
     end
     -- Phantom Singularity
     if talent.phantomSingularity then
@@ -1014,8 +1014,6 @@ local function runRotation()
     --actions+=/variable,name=maintain_se,value=spell_targets.seed_of_corruption_aoe<=1+talent.writhe_in_agony.enabled+talent.absolute_corruption.enabled*2+(talent.writhe_in_agony.enabled&talent.sow_the_seeds.enabled&spell_targets.seed_of_corruption_aoe>2)+(talent.siphon_life.enabled&!talent.creeping_death.enabled&!talent.drain_soul.enabled)+raid_event.invulnerable.up
     maintainSE = (talent.writheInAgony and 1 or 0) + (talent.absoluteCorruption and 1 or 0) * 2 + ((talent.writheInAgony and 1 or 0) and 
     (talent.sowTheSeeds and 1 or 0) and (#enemies.yards10t > 1 and 1 or 0))+((talent.siphonLife and 1 or 0) and (not talent.creepingDeath and 1 or 0) and (not talent.drainSoul and 1 or 0))
-
-
     ---------------------
     --- Begin Profile ---
     ---------------------
@@ -1201,7 +1199,7 @@ local function runRotation()
                 for i = 13, 14 do
                     if use.able.slot(i) and not (equiped.azsharasFontOfPower(i) or equiped.pocketSizedComputationDevice(i)
                         or equiped.rotcrustedVoodooDoll(i) or equiped.shiverVenomRelic(i) or equiped.aquipotentNautilus(i)
-                        or equiped.tidestormCodex(i) or equiped.vialOfStorms(i)) 
+                        or equiped.tidestormCodex(i) or equiped.vialOfStorms(i) or equiped.hummingBlackDragonscale(i)) 
                     then
                         if use.slot(i) then br.addonDebug("Using Trinket in slot "..i.." [CD]") return true end
                     end
@@ -1234,7 +1232,7 @@ local function runRotation()
                 if cast.theUnboundForce() then br.addonDebug("Casting The Unbound Force") return true end
             end
             -- Summon Darkglare
-            if useCDs() and cd.summonDarkglare.remain() <= gcdMax and debuff.agony.exists("target") and (debuff.siphonLife.exists("target") or not talent.siphonLife) and corruptionCount == #enemies.yards10t
+            if getTTD("target") >= 20 and useCDs() and cd.summonDarkglare.remain() <= gcdMax and debuff.agony.exists("target") and (debuff.siphonLife.exists("target") or not talent.siphonLife) and corruptionCount == #enemies.yards10t
                 and (debuff.phantomSingularity.exists("target") or not talent.phantomSingularity) and (shards == 0 or debuff.unstableAffliction.stack("target") == 5)
             then
                 CastSpellByName(GetSpellInfo(spell.summonDarkglare))
@@ -1349,7 +1347,7 @@ local function runRotation()
                 if cast.vileTaint(nil,"aoe",1,8,true) then br.addonDebug("Casting Vile Taint") return true end
             end
             -- Focused Azerite Beam
-            if option.checked("Use Essence") and essence.focusedAzeriteBeam.active and cd.focusedAzeriteBeam.remain() <= gcdMax
+            if cd.summonDarkglare.remains() > 10 and option.checked("Use Essence") and essence.focusedAzeriteBeam.active and cd.focusedAzeriteBeam.remain() <= gcdMax
             and ((essence.focusedAzeriteBeam.rank < 3 and not moving) or essence.focusedAzeriteBeam.rank >= 3) and (getEnemiesInRect(2,25,isChecked("Show Drawings"),false) >= getOptionValue("Azerite Beam Units") or (isBoss("target") and getDistance("player","target") <= 20 and getFacing("player","target", 5))) 
             then
                 if cast.focusedAzeriteBeam() then
@@ -1384,7 +1382,7 @@ local function runRotation()
             if useCDs() and not moving then
                 for i = 13, 14 do
                     if use.able.slot(i) and (equiped.azsharasFontOfPower(i) or equiped.pocketSizedComputationDevice(i)) then
-                        if use.slot(i) then br.addonDebug("Using Trinket in slot "..i.." [CD]") return true end
+                        if use.slot(i) then br.addonDebug("Using Trinket in slot "..i.." [CD]") end
                     end
                 end
             end
