@@ -239,6 +239,9 @@ function BadRotationsUpdate(self)
 					-- Accept dungeon queues
 					br:AcceptQueues()
 
+					--Tracker
+					br.objectTracker()
+
 					-- Anti-Afk
 					br.antiAfk()
 
